@@ -25,7 +25,7 @@ import {
   faLocationDot,
   faBuilding,
   faCog,
-  faCoins,
+  faCoin,          // ✅ CHANGED: faCoins → faCoin
   faStore,
   faBuildingColumns,
   faTruck,
@@ -69,7 +69,7 @@ library.add(
   // Solid
   faArrowRight, faBriefcase, faChartLine, faPlug, faMobileAlt, 
   faCloud, faPalette, faStar, faUsers, faClock, faCheckCircle, 
-  faRocket, faPhone, faLocationDot, faBuilding, faCog, faCoins,
+  faRocket, faPhone, faLocationDot, faBuilding, faCog, faCoin,  // ✅ CHANGED here too
   faStore, faBuildingColumns, faTruck, faStoreAlt, faChartPie,
   faMobileScreenButton, faHospital, faCodeBranch, faGraduationCap,
   faShoppingCart, faChartBar, faTag,
