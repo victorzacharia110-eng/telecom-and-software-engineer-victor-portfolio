@@ -19,7 +19,7 @@ export default defineConfig({
     }
   },
   build: {
-    outDir: '../backend/p', // If you have backend folder
+    outDir: 'dist', 
     emptyOutDir: true,
   }
 })
