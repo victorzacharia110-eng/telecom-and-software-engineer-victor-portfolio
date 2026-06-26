@@ -13,7 +13,10 @@
             :key="cat"
             :class="['filter-btn', { active: activeFilter === cat }]"
             @click="activeFilter = cat"
-          >{{ cat }}</button>
+          >
+            <font-awesome-icon v-if="cat !== 'All'" :icon="getCategoryIcon(cat)" size="xs" />
+            {{ cat }}
+          </button>
         </div>
       </div>
     </div>
@@ -38,16 +41,108 @@ const activeFilter = ref('All')
 
 const categories = ['All', 'ERP', 'E-Commerce', 'Mobile', 'API', 'Analytics']
 
+// Category icon mapping
+const categoryIcons = {
+  'ERP': 'fa-solid fa-chart-line',
+  'E-Commerce': 'fa-solid fa-shopping-cart',
+  'Mobile': 'fa-solid fa-mobile-alt',
+  'API': 'fa-solid fa-plug',
+  'Analytics': 'fa-solid fa-chart-bar'
+}
+
+const getCategoryIcon = (cat) => categoryIcons[cat] || 'fa-solid fa-tag'
+
 const allProjects = [
-  { icon:'🏪', title:'RetailPro POS', description:'Multi-branch point-of-sale with inventory tracking for 200+ East African retail outlets.', tags:['Laravel','Vue.js','MySQL'], team:'6 devs', year:'2024', link:'#', cat:'ERP' },
-  { icon:'🏦', title:'FinanceFlow ERP', description:'Full-cycle financial ERP with payroll, budgeting, and multi-currency real-time reporting.', tags:['PHP','React','PostgreSQL'], team:'4 devs', year:'2024', link:'#', cat:'ERP' },
-  { icon:'🚚', title:'LogiTrack', description:'Fleet and logistics management with live GPS tracking, route optimization, and delivery analytics.', tags:['Laravel','Vue.js','Redis'], team:'5 devs', year:'2023', link:'#', cat:'Analytics' },
-  { icon:'🛒', title:'MarketHub', description:'Full-featured B2B e-commerce marketplace with vendor management and escrow payments.', tags:['Nuxt.js','Laravel','Stripe'], team:'7 devs', year:'2023', link:'#', cat:'E-Commerce' },
-  { icon:'📊', title:'InsightBoard', description:'Executive analytics dashboard with AI-powered forecasting and interactive data visualizations.', tags:['Vue.js','Python','D3.js'], team:'3 devs', year:'2024', link:'#', cat:'Analytics' },
-  { icon:'📱', title:'PayEase Mobile', description:'Cross-platform mobile payment app with QR code payments and wallet management for Tanzania.', tags:['React Native','Node.js','MongoDB'], team:'4 devs', year:'2023', link:'#', cat:'Mobile' },
-  { icon:'🏥', title:'MedTrack HMS', description:'Hospital management system covering patient records, appointments, billing, and pharmacy.', tags:['Laravel','Vue.js','MySQL'], team:'6 devs', year:'2022', link:'#', cat:'ERP' },
-  { icon:'🔌', title:'UnifyAPI Gateway', description:'Centralized API gateway for microservices with rate limiting, auth, and traffic analytics.', tags:['Node.js','Redis','Docker'], team:'3 devs', year:'2024', link:'#', cat:'API' },
-  { icon:'🎓', title:'EduPortal LMS', description:'Learning management system with video streaming, quizzes, certificates, and live sessions.', tags:['Laravel','Vue.js','AWS S3'], team:'5 devs', year:'2023', link:'#', cat:'E-Commerce' },
+  { 
+    icon: 'fa-solid fa-store', 
+    title: 'RetailPro POS', 
+    description: 'Multi-branch point-of-sale with inventory tracking for 200+ East African retail outlets.', 
+    tags: ['Laravel','Vue.js','MySQL'], 
+    team: '6 devs', 
+    year: '2024', 
+    link: '#', 
+    cat: 'ERP' 
+  },
+  { 
+    icon: 'fa-solid fa-building-columns', 
+    title: 'FinanceFlow ERP', 
+    description: 'Full-cycle financial ERP with payroll, budgeting, and multi-currency real-time reporting.', 
+    tags: ['PHP','React','PostgreSQL'], 
+    team: '4 devs', 
+    year: '2024', 
+    link: '#', 
+    cat: 'ERP' 
+  },
+  { 
+    icon: 'fa-solid fa-truck', 
+    title: 'LogiTrack', 
+    description: 'Fleet and logistics management with live GPS tracking, route optimization, and delivery analytics.', 
+    tags: ['Laravel','Vue.js','Redis'], 
+    team: '5 devs', 
+    year: '2023', 
+    link: '#', 
+    cat: 'Analytics' 
+  },
+  { 
+    icon: 'fa-solid fa-store-alt', 
+    title: 'MarketHub', 
+    description: 'Full-featured B2B e-commerce marketplace with vendor management and escrow payments.', 
+    tags: ['Nuxt.js','Laravel','Stripe'], 
+    team: '7 devs', 
+    year: '2023', 
+    link: '#', 
+    cat: 'E-Commerce' 
+  },
+  { 
+    icon: 'fa-solid fa-chart-pie', 
+    title: 'InsightBoard', 
+    description: 'Executive analytics dashboard with AI-powered forecasting and interactive data visualizations.', 
+    tags: ['Vue.js','Python','D3.js'], 
+    team: '3 devs', 
+    year: '2024', 
+    link: '#', 
+    cat: 'Analytics' 
+  },
+  { 
+    icon: 'fa-solid fa-mobile-screen-button', 
+    title: 'PayEase Mobile', 
+    description: 'Cross-platform mobile payment app with QR code payments and wallet management for Tanzania.', 
+    tags: ['React Native','Node.js','MongoDB'], 
+    team: '4 devs', 
+    year: '2023', 
+    link: '#', 
+    cat: 'Mobile' 
+  },
+  { 
+    icon: 'fa-solid fa-hospital', 
+    title: 'MedTrack HMS', 
+    description: 'Hospital management system covering patient records, appointments, billing, and pharmacy.', 
+    tags: ['Laravel','Vue.js','MySQL'], 
+    team: '6 devs', 
+    year: '2022', 
+    link: '#', 
+    cat: 'ERP' 
+  },
+  { 
+    icon: 'fa-solid fa-code-branch', 
+    title: 'UnifyAPI Gateway', 
+    description: 'Centralized API gateway for microservices with rate limiting, auth, and traffic analytics.', 
+    tags: ['Node.js','Redis','Docker'], 
+    team: '3 devs', 
+    year: '2024', 
+    link: '#', 
+    cat: 'API' 
+  },
+  { 
+    icon: 'fa-solid fa-graduation-cap', 
+    title: 'EduPortal LMS', 
+    description: 'Learning management system with video streaming, quizzes, certificates, and live sessions.', 
+    tags: ['Laravel','Vue.js','AWS S3'], 
+    team: '5 devs', 
+    year: '2023', 
+    link: '#', 
+    cat: 'E-Commerce' 
+  },
 ]
 
 const filteredProjects = computed(() =>
@@ -83,7 +178,12 @@ const filteredProjects = computed(() =>
   margin-bottom: 40px;
   line-height: 1.7;
 }
-.filters { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+.filters { 
+  display: flex; 
+  gap: 10px; 
+  justify-content: center; 
+  flex-wrap: wrap; 
+}
 .filter-btn {
   padding: 8px 20px;
   border-radius: 40px;
@@ -95,6 +195,9 @@ const filteredProjects = computed(() =>
   cursor: pointer;
   font-family: 'Space Grotesk', sans-serif;
   transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 .filter-btn:hover { border-color: rgba(0,229,255,0.4); color: #fff; }
 .filter-btn.active {
@@ -103,6 +206,7 @@ const filteredProjects = computed(() =>
   border-color: transparent;
   font-weight: 700;
 }
+.filter-btn.active svg { color: #0a0818; }
 .projects-grid-wrap { padding: 0 32px 100px; }
 .projects-grid {
   max-width: 1200px;
@@ -114,6 +218,22 @@ const filteredProjects = computed(() =>
 .cards-enter-active, .cards-leave-active { transition: all 0.4s ease; }
 .cards-enter-from { opacity: 0; transform: scale(0.9) translateY(20px); }
 .cards-leave-to { opacity: 0; transform: scale(0.9); }
+
+/* Project icon styling for FontAwesome */
+.project-icon-wrapper {
+  width: 52px;
+  height: 52px;
+  background: linear-gradient(135deg, rgba(0,196,212,0.2), rgba(37,99,196,0.2));
+  border: 1px solid rgba(0,229,255,0.3);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: #00E5FF;
+  flex-shrink: 0;
+}
+
 @media (max-width: 1024px) { .projects-grid { grid-template-columns: repeat(2,1fr); } }
 @media (max-width: 640px) { .projects-grid { grid-template-columns: 1fr; } }
 </style>

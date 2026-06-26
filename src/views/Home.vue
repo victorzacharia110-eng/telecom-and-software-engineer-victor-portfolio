@@ -24,15 +24,21 @@
         <div class="hero-actions">
           <RouterLink to="/projects" class="btn-primary">
             View Our Work
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            <font-awesome-icon icon="fa-solid fa-arrow-right" />
           </RouterLink>
-          <RouterLink to="/contact" class="btn-outline">Get in Touch</RouterLink>
+          <RouterLink to="/contact" class="btn-outline">
+            <font-awesome-icon icon="fa-solid fa-rocket" />
+            Get in Touch
+          </RouterLink>
         </div>
 
         <div class="hero-stats">
           <div v-for="stat in stats" :key="stat.label" class="stat-item">
             <span class="stat-value gradient-text">{{ stat.value }}</span>
-            <span class="stat-label">{{ stat.label }}</span>
+            <span class="stat-label">
+              <font-awesome-icon :icon="stat.icon" class="stat-icon" />
+              {{ stat.label }}
+            </span>
           </div>
         </div>
       </div>
@@ -50,7 +56,8 @@
     <div class="marquee-strip">
       <div class="marquee-track">
         <span v-for="item in [...marquee, ...marquee]" :key="Math.random()" class="marquee-item">
-          <span class="marquee-dot">◆</span> {{ item }}
+          <font-awesome-icon icon="fa-solid fa-check-circle" class="marquee-dot" />
+          {{ item }}
         </span>
       </div>
     </div>
@@ -73,11 +80,16 @@
           @mouseleave="activeService = null"
         >
           <div class="svc-glow" :class="{ visible: activeService === i }"></div>
-          <div class="svc-icon">{{ svc.icon }}</div>
+          <div class="svc-icon">
+            <font-awesome-icon :icon="svc.icon" />
+          </div>
           <h3 class="svc-title">{{ svc.title }}</h3>
           <p class="svc-desc">{{ svc.desc }}</p>
           <div class="svc-features">
-            <span v-for="f in svc.features" :key="f" class="svc-feat">{{ f }}</span>
+            <span v-for="f in svc.features" :key="f" class="svc-feat">
+              <font-awesome-icon icon="fa-solid fa-check-circle" size="xs" />
+              {{ f }}
+            </span>
           </div>
         </div>
       </div>
@@ -96,7 +108,10 @@
         <ProjectCard3D v-for="p in featuredProjects" :key="p.title" :project="p" />
       </div>
       <div style="text-align:center; margin-top:48px">
-        <RouterLink to="/projects" class="btn-outline">See All Projects →</RouterLink>
+        <RouterLink to="/projects" class="btn-outline">
+          See All Projects
+          <font-awesome-icon icon="fa-solid fa-arrow-right" />
+        </RouterLink>
       </div>
     </section>
 
@@ -109,6 +124,7 @@
         <h2 class="cta-title">Let's Build Something <span class="gradient-text">Remarkable</span></h2>
         <p class="cta-sub">From concept to launch, we partner with you every step of the way.</p>
         <RouterLink to="/contact" class="btn-primary" style="font-size:1rem; padding:16px 40px">
+          <font-awesome-icon icon="fa-solid fa-rocket" />
           Start a Project
         </RouterLink>
       </div>
@@ -125,10 +141,10 @@ import ProjectCard3D from '../components/ProjectCard3D.vue'
 const activeService = ref(null)
 
 const stats = [
-  { value: '50+', label: 'Projects Delivered' },
-  { value: '8+', label: 'Years Experience' },
-  { value: '30+', label: 'Happy Clients' },
-  { value: '99%', label: 'Uptime SLA' },
+  { value: '50+', label: 'Projects Delivered', icon: 'fa-solid fa-briefcase' },
+  { value: '8+', label: 'Years Experience', icon: 'fa-solid fa-clock' },
+  { value: '30+', label: 'Happy Clients', icon: 'fa-solid fa-users' },
+  { value: '99%', label: 'Uptime SLA', icon: 'fa-solid fa-star' },
 ]
 
 const marquee = [
@@ -138,37 +154,37 @@ const marquee = [
 
 const services = [
   {
-    icon: '🏗️',
+    icon: 'fa-solid fa-briefcase',
     title: 'Enterprise Web Apps',
     desc: 'Custom web applications engineered for scale, security, and performance — tailored precisely to your business workflows.',
     features: ['Laravel Backend', 'Vue/React Frontend', 'Role-based Access'],
   },
   {
-    icon: '📊',
+    icon: 'fa-solid fa-chart-line',
     title: 'ERP & Business Systems',
     desc: 'Integrated ERP platforms that unify finance, inventory, HR, and operations into a single powerful dashboard.',
     features: ['Inventory Management', 'Financial Reporting', 'Multi-branch Support'],
   },
   {
-    icon: '🔌',
+    icon: 'fa-solid fa-plug',
     title: 'API Development',
     desc: 'Clean, documented REST and GraphQL APIs that connect your services, third-party tools, and mobile applications.',
     features: ['REST & GraphQL', 'OAuth2 Auth', 'Swagger Docs'],
   },
   {
-    icon: '📱',
+    icon: 'fa-solid fa-mobile-alt',
     title: 'Mobile Solutions',
     desc: 'Cross-platform mobile apps built with React Native that deliver native-quality experiences on iOS and Android.',
     features: ['React Native', 'Offline Support', 'Push Notifications'],
   },
   {
-    icon: '☁️',
+    icon: 'fa-solid fa-cloud',
     title: 'Cloud & DevOps',
     desc: 'End-to-end deployment pipelines, CI/CD, containerized infrastructure, and monitoring for zero-downtime operations.',
     features: ['Docker & K8s', 'CI/CD Pipelines', 'Auto-scaling'],
   },
   {
-    icon: '🎨',
+    icon: 'fa-solid fa-palette',
     title: 'UI/UX Design',
     desc: 'Purposeful, brand-consistent interfaces that guide users intuitively and convert visitors into loyal customers.',
     features: ['Figma Prototypes', 'Design Systems', 'Accessibility'],
@@ -262,6 +278,10 @@ const featuredProjects = [
   flex-wrap: wrap;
   margin-bottom: 60px;
 }
+.hero-actions .btn-primary svg,
+.hero-actions .btn-outline svg {
+  margin-left: 4px;
+}
 .hero-stats {
   display: flex;
   gap: 40px;
@@ -269,7 +289,15 @@ const featuredProjects = [
 }
 .stat-item { display: flex; flex-direction: column; gap: 4px; }
 .stat-value { font-size: 2rem; font-weight: 800; font-family: 'Syne', sans-serif; }
-.stat-label { font-size: 0.8rem; color: rgba(255,255,255,0.5); letter-spacing: 0.05em; }
+.stat-label { 
+  font-size: 0.8rem; 
+  color: rgba(255,255,255,0.5); 
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.stat-icon { font-size: 0.7rem; opacity: 0.6; }
 
 .scroll-hint {
   position: absolute;
@@ -333,7 +361,11 @@ const featuredProjects = [
   color: rgba(255,255,255,0.5);
   white-space: nowrap;
 }
-.marquee-dot { color: #00C4D4; font-size: 0.6rem; }
+.marquee-dot { 
+  color: #00C4D4; 
+  font-size: 0.6rem;
+  opacity: 0.7;
+}
 @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
 /* ── SECTIONS ── */
@@ -388,7 +420,11 @@ const featuredProjects = [
   pointer-events: none;
 }
 .svc-glow.visible { opacity: 1; }
-.svc-icon { font-size: 2rem; margin-bottom: 16px; }
+.svc-icon { 
+  font-size: 2rem; 
+  margin-bottom: 16px;
+  color: #00E5FF;
+}
 .svc-title { font-size: 1.15rem; font-weight: 700; margin-bottom: 12px; }
 .svc-desc { font-size: 0.875rem; color: rgba(255,255,255,0.58); line-height: 1.65; margin-bottom: 20px; }
 .svc-features { display: flex; flex-wrap: wrap; gap: 6px; }
@@ -400,7 +436,11 @@ const featuredProjects = [
   border: 1px solid rgba(37,99,196,0.4);
   color: rgba(255,255,255,0.6);
   font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
+.svc-feat svg { font-size: 0.5rem; color: #00C4D4; }
 
 /* ── PROJECTS PREVIEW ── */
 .projects-preview {
