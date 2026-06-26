@@ -6,20 +6,20 @@ const activeFilter = ref("All");
 
 const categories = ["All", "ERP", "E-Commerce", "Mobile", "API", "Analytics"];
 
-// Category icon mapping
+// Category icon mapping - USE SIMPLE STRINGS
 const categoryIcons = {
-  ERP: "fa-solid fa-chart-line",
-  "E-Commerce": "fa-solid fa-shopping-cart",
-  Mobile: "fa-solid fa-mobile-alt",
-  API: "fa-solid fa-plug",
-  Analytics: "fa-solid fa-chart-bar",
+  ERP: "chart-line",
+  "E-Commerce": "shopping-cart",
+  Mobile: "mobile-alt",
+  API: "plug",
+  Analytics: "chart-bar",
 };
 
-const getCategoryIcon = (cat) => categoryIcons[cat] || "fa-solid fa-tag";
+const getCategoryIcon = (cat) => categoryIcons[cat] || "tag";
 
 const allProjects = [
   {
-    icon: "fa-solid fa-store",
+    icon: "store",
     title: "RetailPro POS",
     description:
       "Multi-branch point-of-sale with inventory tracking for 200+ East African retail outlets.",
@@ -30,7 +30,7 @@ const allProjects = [
     cat: "ERP",
   },
   {
-    icon: "fa-solid fa-building-columns",
+    icon: "building-columns",
     title: "FinanceFlow ERP",
     description:
       "Full-cycle financial ERP with payroll, budgeting, and multi-currency real-time reporting.",
@@ -41,7 +41,7 @@ const allProjects = [
     cat: "ERP",
   },
   {
-    icon: "fa-solid fa-truck",
+    icon: "truck",
     title: "LogiTrack",
     description:
       "Fleet and logistics management with live GPS tracking, route optimization, and delivery analytics.",
@@ -52,7 +52,7 @@ const allProjects = [
     cat: "Analytics",
   },
   {
-    icon: "fa-solid fa-store-alt",
+    icon: "store-alt",
     title: "MarketHub",
     description:
       "Full-featured B2B e-commerce marketplace with vendor management and escrow payments.",
@@ -63,7 +63,7 @@ const allProjects = [
     cat: "E-Commerce",
   },
   {
-    icon: "fa-solid fa-chart-pie",
+    icon: "chart-pie",
     title: "InsightBoard",
     description:
       "Executive analytics dashboard with AI-powered forecasting and interactive data visualizations.",
@@ -74,7 +74,7 @@ const allProjects = [
     cat: "Analytics",
   },
   {
-    icon: "fa-solid fa-mobile-screen-button",
+    icon: "mobile-screen-button",
     title: "PayEase Mobile",
     description:
       "Cross-platform mobile payment app with QR code payments and wallet management for Tanzania.",
@@ -85,7 +85,7 @@ const allProjects = [
     cat: "Mobile",
   },
   {
-    icon: "fa-solid fa-hospital",
+    icon: "hospital",
     title: "MedTrack HMS",
     description:
       "Hospital management system covering patient records, appointments, billing, and pharmacy.",
@@ -96,7 +96,7 @@ const allProjects = [
     cat: "ERP",
   },
   {
-    icon: "fa-solid fa-code-branch",
+    icon: "code-branch",
     title: "UnifyAPI Gateway",
     description:
       "Centralized API gateway for microservices with rate limiting, auth, and traffic analytics.",
@@ -107,7 +107,7 @@ const allProjects = [
     cat: "API",
   },
   {
-    icon: "fa-solid fa-graduation-cap",
+    icon: "graduation-cap",
     title: "EduPortal LMS",
     description:
       "Learning management system with video streaming, quizzes, certificates, and live sessions.",
@@ -144,7 +144,7 @@ const filteredProjects = computed(() =>
             :class="['filter-btn', { active: activeFilter === cat }]"
             @click="activeFilter = cat"
           >
-            <font-awesome-icon v-if="cat !== 'All'" :icon="getCategoryIcon(cat)" size="xs" />
+            <font-awesome-icon v-if="cat !== 'All'" :icon="['fas', getCategoryIcon(cat)]" size="xs" />
             {{ cat }}
           </button>
         </div>
@@ -254,21 +254,6 @@ const filteredProjects = computed(() =>
 .cards-leave-to {
   opacity: 0;
   transform: scale(0.9);
-}
-
-/* Project icon styling for FontAwesome */
-.project-icon-wrapper {
-  width: 52px;
-  height: 52px;
-  background: linear-gradient(135deg, rgba(0, 196, 212, 0.2), rgba(37, 99, 196, 0.2));
-  border: 1px solid rgba(0, 229, 255, 0.3);
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.5rem;
-  color: #00e5ff;
-  flex-shrink: 0;
 }
 
 @media (max-width: 1024px) {

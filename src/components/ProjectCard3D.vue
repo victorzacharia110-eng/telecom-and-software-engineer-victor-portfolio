@@ -12,7 +12,7 @@
 
       <!-- Icon badge -->
       <div class="card-icon">
-        <span>{{ project.icon }}</span>
+        <font-awesome-icon :icon="['fas', project.icon]" />
       </div>
 
       <!-- Tags -->
@@ -26,17 +26,17 @@
       <div class="card-footer">
         <div class="card-stats">
           <span class="stat">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            <font-awesome-icon icon="fa-solid fa-users" size="xs" />
             {{ project.team }}
           </span>
           <span class="stat">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            <font-awesome-icon icon="fa-regular fa-calendar" size="xs" />
             {{ project.year }}
           </span>
         </div>
         <a :href="project.link" class="card-cta">
           View
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          <font-awesome-icon icon="fa-solid fa-arrow-right" size="xs" />
         </a>
       </div>
 
@@ -111,7 +111,8 @@ const glareStyle = computed(() => ({
   z-index: 10;
 }
 .card-icon {
-  width: 52px; height: 52px;
+  width: 52px;
+  height: 52px;
   background: linear-gradient(135deg, rgba(0,196,212,0.2), rgba(37,99,196,0.2));
   border: 1px solid rgba(0,229,255,0.3);
   border-radius: 12px;
@@ -119,6 +120,7 @@ const glareStyle = computed(() => ({
   align-items: center;
   justify-content: center;
   font-size: 1.5rem;
+  color: #00E5FF;
   flex-shrink: 0;
 }
 .card-tags {
