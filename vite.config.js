@@ -11,15 +11,9 @@ export default defineConfig({
   },
   server: {
     port: 3000,
-    proxy: {
-      '/api': {
-        target: 'http://localhost:8000', // Your Laravel backend
-        changeOrigin: true,
-      }
-    }
   },
   build: {
-    outDir: '../backend/p', // If you have backend folder
+    outDir: 'dist',
     emptyOutDir: true,
   }
 })
