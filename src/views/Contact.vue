@@ -1,3 +1,45 @@
+<script setup>
+import { ref } from 'vue'
+
+const submitting = ref(false)
+const submitted = ref(false)
+
+const form = ref({
+  name: '', email: '', company: '',
+  service: '', budget: '', message: '',
+})
+
+const serviceOptions = [
+  'Enterprise Web Application', 'ERP System', 'API Development',
+  'Mobile Application', 'Cloud & DevOps', 'UI/UX Design', 'Other',
+]
+
+const socials = [
+  { label: 'LinkedIn', icon: '🔗', href: '#' },
+  { label: 'Twitter', icon: '🐦', href: '#' },
+  { label: 'GitHub', icon: '💻', href: '#' },
+  { label: 'WhatsApp', icon: '💬', href: '#' },
+]
+
+async function submitForm() {
+  submitting.value = true
+  try {
+    await fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(form.value),
+    })
+    submitted.value = true
+    form.value = { name:'', email:'', company:'', service:'', budget:'', message:'' }
+  } catch(e) {
+    // In production, handle error
+    submitted.value = true
+  } finally {
+    submitting.value = false
+  }
+}
+</script>
+
 <template>
   <div class="contact-page">
     <div class="contact-inner">
@@ -108,47 +150,7 @@
   </div>
 </template>
 
-<script setup>
-import { ref } from 'vue'
 
-const submitting = ref(false)
-const submitted = ref(false)
-
-const form = ref({
-  name: '', email: '', company: '',
-  service: '', budget: '', message: '',
-})
-
-const serviceOptions = [
-  'Enterprise Web Application', 'ERP System', 'API Development',
-  'Mobile Application', 'Cloud & DevOps', 'UI/UX Design', 'Other',
-]
-
-const socials = [
-  { label: 'LinkedIn', icon: '🔗', href: '#' },
-  { label: 'Twitter', icon: '🐦', href: '#' },
-  { label: 'GitHub', icon: '💻', href: '#' },
-  { label: 'WhatsApp', icon: '💬', href: '#' },
-]
-
-async function submitForm() {
-  submitting.value = true
-  try {
-    await fetch('/api/contact', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify(form.value),
-    })
-    submitted.value = true
-    form.value = { name:'', email:'', company:'', service:'', budget:'', message:'' }
-  } catch(e) {
-    // In production, handle error
-    submitted.value = true
-  } finally {
-    submitting.value = false
-  }
-}
-</script>
 
 <style scoped>
 .contact-page {

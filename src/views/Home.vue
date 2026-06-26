@@ -1,3 +1,93 @@
+<script setup>
+import { ref } from 'vue'
+import Hero3D from '../components/Hero3D.vue'
+import SkillsOrbit from '../components/SkillsOrbit.vue'
+import ProjectCard3D from '../components/ProjectCard3D.vue'
+
+const activeService = ref(null)
+
+const stats = [
+  { value: '50+', label: 'Projects Delivered', icon: 'fa-solid fa-briefcase' },
+  { value: '8+', label: 'Years Experience', icon: 'fa-solid fa-clock' },
+  { value: '30+', label: 'Happy Clients', icon: 'fa-solid fa-users' },
+  { value: '99%', label: 'Uptime SLA', icon: 'fa-solid fa-star' },
+]
+
+const marquee = [
+  'Laravel', 'Vue.js', 'React', 'MySQL', 'Docker', 'REST APIs',
+  'ERP Systems', 'Mobile Apps', 'Cloud Hosting', 'UI/UX Design',
+]
+
+const services = [
+  {
+    icon: 'fa-solid fa-briefcase',
+    title: 'Enterprise Web Apps',
+    desc: 'Custom web applications engineered for scale, security, and performance — tailored precisely to your business workflows.',
+    features: ['Laravel Backend', 'Vue/React Frontend', 'Role-based Access'],
+  },
+  {
+    icon: 'fa-solid fa-chart-line',
+    title: 'ERP & Business Systems',
+    desc: 'Integrated ERP platforms that unify finance, inventory, HR, and operations into a single powerful dashboard.',
+    features: ['Inventory Management', 'Financial Reporting', 'Multi-branch Support'],
+  },
+  {
+    icon: 'fa-solid fa-plug',
+    title: 'API Development',
+    desc: 'Clean, documented REST and GraphQL APIs that connect your services, third-party tools, and mobile applications.',
+    features: ['REST & GraphQL', 'OAuth2 Auth', 'Swagger Docs'],
+  },
+  {
+    icon: 'fa-solid fa-mobile-alt',
+    title: 'Mobile Solutions',
+    desc: 'Cross-platform mobile apps built with React Native that deliver native-quality experiences on iOS and Android.',
+    features: ['React Native', 'Offline Support', 'Push Notifications'],
+  },
+  {
+    icon: 'fa-solid fa-cloud',
+    title: 'Cloud & DevOps',
+    desc: 'End-to-end deployment pipelines, CI/CD, containerized infrastructure, and monitoring for zero-downtime operations.',
+    features: ['Docker & K8s', 'CI/CD Pipelines', 'Auto-scaling'],
+  },
+  {
+    icon: 'fa-solid fa-palette',
+    title: 'UI/UX Design',
+    desc: 'Purposeful, brand-consistent interfaces that guide users intuitively and convert visitors into loyal customers.',
+    features: ['Figma Prototypes', 'Design Systems', 'Accessibility'],
+  },
+]
+
+const featuredProjects = [
+  {
+    icon: '🏪',
+    title: 'RetailPro POS System',
+    description: 'Multi-branch point-of-sale and inventory management platform serving 200+ retail outlets across East Africa.',
+    tags: ['Laravel', 'Vue.js', 'MySQL'],
+    team: '6 devs',
+    year: '2024',
+    link: '/projects',
+  },
+  {
+    icon: '🏦',
+    title: 'FinanceFlow ERP',
+    description: 'Comprehensive financial management system with real-time reporting, payroll, and multi-currency support.',
+    tags: ['PHP', 'React', 'PostgreSQL'],
+    team: '4 devs',
+    year: '2024',
+    link: '/projects',
+  },
+  {
+    icon: '🚚',
+    title: 'LogiTrack Platform',
+    description: 'Fleet tracking and logistics management system with live GPS, route optimization, and delivery analytics.',
+    tags: ['Laravel', 'Vue.js', 'Redis'],
+    team: '5 devs',
+    year: '2023',
+    link: '/projects',
+  },
+]
+</script>
+
 <template>
   <div class="home">
     <!-- ── HERO ── -->
@@ -132,95 +222,7 @@
   </div>
 </template>
 
-<script setup>
-import { ref } from 'vue'
-import Hero3D from '../components/Hero3D.vue'
-import SkillsOrbit from '../components/SkillsOrbit.vue'
-import ProjectCard3D from '../components/ProjectCard3D.vue'
 
-const activeService = ref(null)
-
-const stats = [
-  { value: '50+', label: 'Projects Delivered', icon: 'fa-solid fa-briefcase' },
-  { value: '8+', label: 'Years Experience', icon: 'fa-solid fa-clock' },
-  { value: '30+', label: 'Happy Clients', icon: 'fa-solid fa-users' },
-  { value: '99%', label: 'Uptime SLA', icon: 'fa-solid fa-star' },
-]
-
-const marquee = [
-  'Laravel', 'Vue.js', 'React', 'MySQL', 'Docker', 'REST APIs',
-  'ERP Systems', 'Mobile Apps', 'Cloud Hosting', 'UI/UX Design',
-]
-
-const services = [
-  {
-    icon: 'fa-solid fa-briefcase',
-    title: 'Enterprise Web Apps',
-    desc: 'Custom web applications engineered for scale, security, and performance — tailored precisely to your business workflows.',
-    features: ['Laravel Backend', 'Vue/React Frontend', 'Role-based Access'],
-  },
-  {
-    icon: 'fa-solid fa-chart-line',
-    title: 'ERP & Business Systems',
-    desc: 'Integrated ERP platforms that unify finance, inventory, HR, and operations into a single powerful dashboard.',
-    features: ['Inventory Management', 'Financial Reporting', 'Multi-branch Support'],
-  },
-  {
-    icon: 'fa-solid fa-plug',
-    title: 'API Development',
-    desc: 'Clean, documented REST and GraphQL APIs that connect your services, third-party tools, and mobile applications.',
-    features: ['REST & GraphQL', 'OAuth2 Auth', 'Swagger Docs'],
-  },
-  {
-    icon: 'fa-solid fa-mobile-alt',
-    title: 'Mobile Solutions',
-    desc: 'Cross-platform mobile apps built with React Native that deliver native-quality experiences on iOS and Android.',
-    features: ['React Native', 'Offline Support', 'Push Notifications'],
-  },
-  {
-    icon: 'fa-solid fa-cloud',
-    title: 'Cloud & DevOps',
-    desc: 'End-to-end deployment pipelines, CI/CD, containerized infrastructure, and monitoring for zero-downtime operations.',
-    features: ['Docker & K8s', 'CI/CD Pipelines', 'Auto-scaling'],
-  },
-  {
-    icon: 'fa-solid fa-palette',
-    title: 'UI/UX Design',
-    desc: 'Purposeful, brand-consistent interfaces that guide users intuitively and convert visitors into loyal customers.',
-    features: ['Figma Prototypes', 'Design Systems', 'Accessibility'],
-  },
-]
-
-const featuredProjects = [
-  {
-    icon: '🏪',
-    title: 'RetailPro POS System',
-    description: 'Multi-branch point-of-sale and inventory management platform serving 200+ retail outlets across East Africa.',
-    tags: ['Laravel', 'Vue.js', 'MySQL'],
-    team: '6 devs',
-    year: '2024',
-    link: '/projects',
-  },
-  {
-    icon: '🏦',
-    title: 'FinanceFlow ERP',
-    description: 'Comprehensive financial management system with real-time reporting, payroll, and multi-currency support.',
-    tags: ['PHP', 'React', 'PostgreSQL'],
-    team: '4 devs',
-    year: '2024',
-    link: '/projects',
-  },
-  {
-    icon: '🚚',
-    title: 'LogiTrack Platform',
-    description: 'Fleet tracking and logistics management system with live GPS, route optimization, and delivery analytics.',
-    tags: ['Laravel', 'Vue.js', 'Redis'],
-    team: '5 devs',
-    year: '2023',
-    link: '/projects',
-  },
-]
-</script>
 
 <style scoped>
 /* ── HERO ── */
