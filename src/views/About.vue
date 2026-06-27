@@ -135,7 +135,7 @@ const focusAreas = [
 
 const timeline = [
   { year: '2016', icon: '🌱', title: 'TSCL Founded',             desc: 'Victor Zacharia founded Telesoft Company Limited in Dar es Salaam — building enterprise software tailored for African business realities.' },
-  { year: '2017', icon: '🚀', title: 'First Enterprise Client',   desc: 'Delivered the first major retail POS and inventory platform, establishing TSCL's reputation for production-grade systems.' },
+  { year: '2017', icon: '🚀', title: 'First Enterprise Client',   desc: "Delivered the first major retail POS and inventory platform, establishing TSCL's reputation for production-grade systems." },
   { year: '2018', icon: '📡', title: 'Telecom Division Launched', desc: "Built on Victor's telecom engineering background, a dedicated telecom software practice was launched to serve ISPs and network operators." },
   { year: '2019', icon: '🌍', title: 'Regional Expansion',        desc: 'Extended delivery to Kenya and Uganda; cross-border logistics and finance platforms deployed across three countries.' },
   { year: '2021', icon: '📱', title: 'Mobile Practice Added',     desc: 'Added React Native mobile development — five production apps shipped in year one across retail, fintech, and field operations.' },
