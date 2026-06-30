@@ -88,12 +88,12 @@ import {
   faRotate,
   faReply,
   faPaperPlane,
-  faSignInAlt,        // ⬅️ ADD THIS
-  faUserPlus,         // ⬅️ ADD THIS
-  faPhone,            // ⬅️ ADD THIS
-  faLocationDot,      // ⬅️ ADD THIS
-  faCog,              // ⬅️ ADD THIS
-  faCoins,            // ⬅️ ADD THIS
+  faSignInAlt,
+  faUserPlus,
+  faPhone,
+  faLocationDot,
+  faCog,
+  faCoins,
   faEnvelope as faEnvelopeSolid,
   faRobot,
   faGamepad,
@@ -106,29 +106,34 @@ import {
   faLaptop,
   faTablet,
   faPrint as faPrintSolid,
+  faArrowRightToBracket,
+  faArrowLeft,
 } from '@fortawesome/free-solid-svg-icons'
 
 import { 
   faCalendar as faCalendarRegular,
   faEye as faEyeRegular,
+  faEyeSlash as faEyeSlashRegular,
   faStar as faStarRegular,
   faComment,
   faEnvelope as faEnvelopeRegular,
   faUser as faUserRegular,
   faPaperPlane as faPaperPlaneRegular,
   faClock as faClockRegular,
+  faCircle as faCircleRegular,
+  faCircleCheck as faCircleCheckRegular,
 } from '@fortawesome/free-regular-svg-icons'
 
 import {
   faGithub,
   faTwitter,
   faLinkedin,
-  faLinkedinIn,       // ⬅️ ADD THIS
+  faLinkedinIn,
   faFacebook,
-  faFacebookF,        // ⬅️ ADD THIS
+  faFacebookF,
   faInstagram,
   faYoutube,
-  faWhatsapp,         // ⬅️ ADD THIS
+  faWhatsapp,
 } from '@fortawesome/free-brands-svg-icons'
 
 // Add all icons to the library
@@ -229,16 +234,21 @@ library.add(
   faDesktop,
   faLaptop,
   faTablet,
+  faArrowRightToBracket,
+  faArrowLeft,
   
   // Regular Icons
   faCalendarRegular,
   faEyeRegular,
+  faEyeSlashRegular,
   faStarRegular,
   faComment,
   faEnvelopeRegular,
   faUserRegular,
   faPaperPlaneRegular,
   faClockRegular,
+  faCircleRegular,
+  faCircleCheckRegular,
   
   // Brand Icons
   faGithub,
