@@ -1,6 +1,6 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
-import api, { csrfApi } from '@/composables/api'
+import api from '@/composables/api'
 
 export const useAuthStore = defineStore('auth', () => {
   // State
@@ -8,7 +8,6 @@ export const useAuthStore = defineStore('auth', () => {
   const isLoading = ref(false)
   const error = ref(null)
   const isInitialized = ref(false)
-  const csrfFetched = ref(false)
 
   // Getters
   const isAuthenticated = computed(() => !!user.value)
@@ -21,52 +20,44 @@ export const useAuthStore = defineStore('auth', () => {
   const isAdmin = computed(() => user.value?.role === 'admin')
   const isClient = computed(() => user.value?.role === 'client')
 
-  // ── CSRF Cookie Methods ──────────────────────────────────────────────────
-
-  async function fetchCsrfCookie() {
-    if (csrfFetched.value) return true
-    
-    try {
-      //  Use csrfApi which has NO /api prefix
-      await csrfApi.get('/sanctum/csrf-cookie')
-      csrfFetched.value = true
-      console.log('CSRF cookie fetched successfully')
-      return true
-    } catch (err) {
-      console.warn('CSRF cookie not available (continuing anyway):', err.message)
-      return false
-    }
-  }
-
   // ── Actions ──────────────────────────────────────────────────────────────
 
   function setUser(userData) {
     user.value = userData
     try {
-      sessionStorage.setItem('auth_user', JSON.stringify(userData))
+      localStorage.setItem('user', JSON.stringify(userData))
     } catch (e) {}
   }
 
   function clearUser() {
     user.value = null
-    csrfFetched.value = false
     try {
-      sessionStorage.removeItem('auth_user')
+      localStorage.removeItem('user')
+      localStorage.removeItem('auth_token')
     } catch (e) {}
+  }
+
+  function setToken(token) {
+    if (token) {
+      localStorage.setItem('auth_token', token)
+    }
   }
 
   function rehydrate() {
     try {
-      const storedUser = sessionStorage.getItem('auth_user')
-      if (storedUser) {
+      const storedUser = localStorage.getItem('user')
+      const storedToken = localStorage.getItem('auth_token')
+      
+      if (storedUser && storedToken) {
         const parsedUser = JSON.parse(storedUser)
         user.value = parsedUser
-        console.log('User rehydrated from session:', parsedUser.name)
+        console.log('User rehydrated from localStorage:', parsedUser.name)
         return true
       }
     } catch (e) {
       console.warn('Failed to rehydrate user:', e)
-      sessionStorage.removeItem('auth_user')
+      localStorage.removeItem('user')
+      localStorage.removeItem('auth_token')
     }
     return false
   }
@@ -78,26 +69,26 @@ export const useAuthStore = defineStore('auth', () => {
     error.value = null
 
     try {
-      await fetchCsrfCookie()
-      
-      // ✅ Use api for auth routes (has /api prefix)
-      const response = await api.post('/auth/register', userData)
+      const response = await api.post('/register', userData)
       
       if (response.data.success) {
-        const newUser = response.data.data.user
+        const userData = response.data.data.user
+        const token = response.data.data.token
 
         console.log('User registered successfully!')
-        console.log('User ID:', newUser.id)
-        console.log('User Name:', newUser.name)
-        console.log('User Email:', newUser.email)
-        console.log('User Phone:', newUser.phone_number)
-        console.log('User Role:', newUser.role || 'client')
+        console.log('User ID:', userData.id)
+        console.log('User Name:', userData.name)
+        console.log('User Email:', userData.email)
+        console.log('User Phone:', userData.phone_number)
+        console.log('User Role:', userData.role || 'client')
 
-        setUser(newUser)
+        setUser(userData)
+        setToken(token)
 
         return {
           success: true,
-          user: newUser,
+          user: userData,
+          token: token,
           message: response.data.message
         }
       }
@@ -136,13 +127,11 @@ export const useAuthStore = defineStore('auth', () => {
     error.value = null
 
     try {
-      await fetchCsrfCookie()
-      
-      // ✅ Use api for auth routes (has /api prefix)
-      const response = await api.post('/auth/login', credentials)
+      const response = await api.post('/login', credentials)
       
       if (response.data.success) {
         const userData = response.data.data.user
+        const token = response.data.data.token
         const rememberMe = response.data.data.remember_me
 
         console.log('Login successful!')
@@ -155,10 +144,12 @@ export const useAuthStore = defineStore('auth', () => {
         console.log('Is Verified:', userData.is_verified)
 
         setUser(userData)
+        setToken(token)
 
         return {
           success: true,
           user: userData,
+          token: token,
           remember_me: rememberMe,
           message: response.data.message
         }
@@ -190,27 +181,24 @@ export const useAuthStore = defineStore('auth', () => {
     error.value = null
 
     try {
-      await fetchCsrfCookie()
+      const token = localStorage.getItem('auth_token')
+      if (token) {
+        await api.post('/logout')
+      }
       
-      // ✅ Use api for auth routes (has /api prefix)
-      const response = await api.post('/auth/logout')
+      console.log('Logged out successfully!')
+      clearUser()
       
-      if (response.data.success) {
-        console.log('Logged out successfully!')
-        clearUser()
-
-        return {
-          success: true,
-          message: response.data.message
-        }
+      return {
+        success: true,
+        message: 'Logged out successfully'
       }
     } catch (err) {
       console.error('Logout error:', err)
-      error.value = err.response?.data?.message || 'Logout failed'
       clearUser()
       return {
         success: false,
-        message: error.value
+        message: err.response?.data?.message || 'Logout failed'
       }
     } finally {
       isLoading.value = false
@@ -222,8 +210,7 @@ export const useAuthStore = defineStore('auth', () => {
     error.value = null
 
     try {
-      // ✅ Use api for auth routes (has /api prefix)
-      const response = await api.get('/auth/user')
+      const response = await api.get('/user')
       
       if (response.data.success) {
         const userData = response.data.data.user
@@ -262,10 +249,7 @@ export const useAuthStore = defineStore('auth', () => {
     error.value = null
 
     try {
-      await fetchCsrfCookie()
-      
-      //  Use api for auth routes (has /api prefix)
-      const response = await api.post('/auth/change-password', passwordData)
+      const response = await api.post('/change-password', passwordData)
       
       if (response.data.success) {
         return {
@@ -300,7 +284,7 @@ export const useAuthStore = defineStore('auth', () => {
     const rehydrated = rehydrate()
     
     if (rehydrated) {
-      console.log('Auth rehydrated from session')
+      console.log('Auth rehydrated from localStorage')
       isInitialized.value = true
       return
     }
@@ -327,7 +311,6 @@ export const useAuthStore = defineStore('auth', () => {
     error.value = null
     isLoading.value = false
     isInitialized.value = false
-    csrfFetched.value = false
   }
 
   return {
@@ -351,8 +334,8 @@ export const useAuthStore = defineStore('auth', () => {
     // Methods
     setUser,
     clearUser,
+    setToken,
     rehydrate,
-    fetchCsrfCookie,
     register,
     login,
     logout,
