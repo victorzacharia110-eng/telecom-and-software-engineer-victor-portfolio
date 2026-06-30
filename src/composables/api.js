@@ -13,7 +13,7 @@ const api = axios.create({
 
 //  Create a separate instance for CSRF (no /api prefix)
 export const csrfApi = axios.create({
-  baseURL: import.meta.env.VITE_APP_URL || "http://localhost:8000",
+  baseURL: import.meta.env.VITE_APP_URL || "https://api.apitscl.online",
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",
