@@ -43,7 +43,7 @@ async function fetchProfile() {
   error.value = null
 
   try {
-    const response = await api.get('/auth/user')
+    const response = await api.get('/user')
     if (response.data.success) {
       const user = response.data.data.user
       profileForm.name = user.name
@@ -66,7 +66,7 @@ async function updateProfile() {
   successMessage.value = null
 
   try {
-    const response = await api.patch('/auth/profile', {
+    const response = await api.patch('/admin/profile', {
       name: profileForm.name,
       email: profileForm.email,
       phone_number: profileForm.phone_number,
@@ -74,8 +74,7 @@ async function updateProfile() {
 
     if (response.data.success) {
       successMessage.value = 'Profile updated successfully!'
-      // Update auth store user
-      authStore.setUser(response.data.data.user)
+      authStore.setUser(response.data.data)
       console.log('✅ Profile updated')
       
       setTimeout(() => {
@@ -101,7 +100,7 @@ async function updatePassword() {
   successMessage.value = null
 
   try {
-    const response = await api.post('/auth/change-password', {
+    const response = await api.post('/change-password', {
       current_password: passwordForm.current_password,
       new_password: passwordForm.new_password,
       new_password_confirmation: passwordForm.new_password_confirmation,
@@ -134,6 +133,13 @@ function clearMessages() {
 function switchTab(tab) {
   activeTab.value = tab
   clearMessages()
+}
+
+function confirmDelete() {
+  if (confirm('Are you sure you want to delete your account? This action cannot be undone!')) {
+    // Handle account deletion
+    console.log('Account deletion requested')
+  }
 }
 
 onMounted(() => {

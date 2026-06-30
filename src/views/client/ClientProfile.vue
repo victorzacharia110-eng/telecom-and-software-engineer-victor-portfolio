@@ -17,6 +17,10 @@
           <span>{{ authStore.userEmail }}</span>
         </div>
         <div class="info-row">
+          <label>Phone Number</label>
+          <span>{{ authStore.user?.phone_number || 'Not provided' }}</span>
+        </div>
+        <div class="info-row">
           <label>Account Type</label>
           <span class="role-badge">Client</span>
         </div>
