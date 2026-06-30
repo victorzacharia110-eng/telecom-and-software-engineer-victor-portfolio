@@ -1,11 +1,23 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import Hero3D from '../components/Hero3D.vue'
 import SkillsOrbit from '../components/SkillsOrbit.vue'
 import ProjectCard3D from '../components/ProjectCard3D.vue'
+import { useProjectStore } from '@/stores/project'
+import { storeToRefs } from 'pinia'
 
 const activeService = ref(null)
+const store = useProjectStore()
 
+// ── Store Refs ────────────────────────────────────────────────────────────
+const { projects, isLoading, error, categories, activeCategory } = storeToRefs(store)
+
+// ── Computed - Show all projects ─────────────────────────────────────────
+const displayProjects = computed(() => {
+  return projects.value || []
+})
+
+// ── Static Data ──────────────────────────────────────────────────────────
 const stats = [
   { value: '50+', label: 'Projects Delivered', icon: 'fa-solid fa-briefcase' },
   { value: '8+', label: 'Years Experience', icon: 'fa-solid fa-clock' },
@@ -57,35 +69,17 @@ const services = [
   },
 ]
 
-const featuredProjects = [
-  {
-    icon: '🏪',
-    title: 'RetailPro POS System',
-    description: 'Multi-branch point-of-sale and inventory management platform serving 200+ retail outlets across East Africa.',
-    tags: ['Laravel', 'Vue.js', 'MySQL'],
-    team: '6 devs',
-    year: '2024',
-    link: '/projects',
-  },
-  {
-    icon: '🏦',
-    title: 'FinanceFlow ERP',
-    description: 'Comprehensive financial management system with real-time reporting, payroll, and multi-currency support.',
-    tags: ['PHP', 'React', 'PostgreSQL'],
-    team: '4 devs',
-    year: '2024',
-    link: '/projects',
-  },
-  {
-    icon: '🚚',
-    title: 'LogiTrack Platform',
-    description: 'Fleet tracking and logistics management system with live GPS, route optimization, and delivery analytics.',
-    tags: ['Laravel', 'Vue.js', 'Redis'],
-    team: '5 devs',
-    year: '2023',
-    link: '/projects',
-  },
-]
+// ── Methods ──────────────────────────────────────────────────────────────
+async function loadProjects() {
+  console.log('🔄 Loading projects...')
+  await store.fetchProjects()
+  console.log('📦 Projects loaded:', projects.value?.length || 0)
+  console.log('📋 Projects data:', projects.value)
+}
+
+onMounted(() => {
+  loadProjects()
+})
 </script>
 
 <template>
@@ -193,10 +187,42 @@ const featuredProjects = [
       <div class="section-header">
         <p class="section-label">Portfolio</p>
         <h2 class="section-title">Recent <span class="gradient-text">Projects</span></h2>
+        <p class="section-sub" v-if="displayProjects.length > 0">
+          Showing {{ displayProjects.length }} project{{ displayProjects.length > 1 ? 's' : '' }}
+        </p>
       </div>
-      <div class="projects-grid">
-        <ProjectCard3D v-for="p in featuredProjects" :key="p.title" :project="p" />
+
+      <!-- Loading State -->
+      <div v-if="isLoading" class="loading-state">
+        <div class="spinner"></div>
+        <p>Loading projects...</p>
       </div>
+
+      <!-- Error State -->
+      <div v-else-if="error" class="error-banner">
+        <font-awesome-icon icon="fa-solid fa-circle-exclamation" />
+        {{ error }}
+      </div>
+
+      <!-- Projects Grid -->
+      <div v-else-if="displayProjects.length > 0" class="projects-grid">
+        <ProjectCard3D 
+          v-for="project in displayProjects" 
+          :key="project.id || project.title" 
+          :project="project" 
+        />
+      </div>
+
+      <!-- Empty State -->
+      <div v-else class="empty-state">
+        <font-awesome-icon icon="fa-solid fa-folder-open" size="3x" />
+        <h3>No Projects Yet</h3>
+        <p>Check back soon for our latest work.</p>
+        <p style="color: rgba(255,255,255,0.2); font-size: 0.8rem; margin-top: 8px;">
+          Add a project in the admin dashboard
+        </p>
+      </div>
+
       <div style="text-align:center; margin-top:48px">
         <RouterLink to="/projects" class="btn-outline">
           See All Projects
@@ -221,8 +247,6 @@ const featuredProjects = [
     </section>
   </div>
 </template>
-
-
 
 <style scoped>
 /* ── HERO ── */
@@ -458,6 +482,59 @@ const featuredProjects = [
   margin: 0 auto;
 }
 
+/* ── Loading State ── */
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  gap: 16px;
+  color: rgba(255,255,255,0.3);
+}
+.spinner {
+  width: 44px;
+  height: 44px;
+  border: 3px solid rgba(0,196,212,0.1);
+  border-top-color: #00C4D4;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Error State ── */
+.error-banner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  max-width: 600px;
+  margin: 0 auto;
+  background: rgba(255,0,0,0.08);
+  border: 1px solid rgba(255,0,0,0.2);
+  border-radius: 10px;
+  color: #ff6b6b;
+  font-size: 0.9rem;
+}
+
+/* ── Empty State ── */
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: rgba(255,255,255,0.3);
+  grid-column: 1 / -1;
+}
+.empty-state svg {
+  opacity: 0.3;
+  margin-bottom: 16px;
+}
+.empty-state h3 {
+  color: #fff;
+  margin-bottom: 8px;
+}
+
 /* ── CTA BANNER ── */
 .cta-banner {
   padding: 80px 32px 120px;
@@ -498,12 +575,59 @@ const featuredProjects = [
   line-height: 1.7;
 }
 
+/* ── Buttons ── */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  border-radius: 30px;
+  background: linear-gradient(90deg, #00C4D4, #00E5FF);
+  color: #0a0818;
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: all 0.2s;
+  border: none;
+  cursor: pointer;
+  font-family: 'Space Grotesk', sans-serif;
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0,229,255,0.3);
+}
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  border-radius: 30px;
+  border: 1.5px solid rgba(255,255,255,0.15);
+  background: transparent;
+  color: rgba(255,255,255,0.7);
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: all 0.2s;
+  font-family: 'Space Grotesk', sans-serif;
+}
+.btn-outline:hover {
+  border-color: #00E5FF;
+  color: #fff;
+  background: rgba(0,229,255,0.05);
+}
+
+/* ── Responsive ── */
 @media (max-width: 1024px) {
   .services-grid, .projects-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+  .cta-inner { padding: 48px 24px; }
 }
 @media (max-width: 640px) {
   .services-grid, .projects-grid { grid-template-columns: 1fr; }
   .hero-content { padding: 100px 24px 60px; margin-left: 0; }
   .hero-stats { gap: 24px; }
+  .cta-inner { padding: 32px 16px; }
 }
 </style>

@@ -1,23 +1,16 @@
-<template>
-  <div id="app-root">
-    <ParticleBackground />
-    <NavBar />
-    <main class="main-content">
-      <RouterView v-slot="{ Component }">
-        <Transition name="page" mode="out-in">
-          <component :is="Component" />
-        </Transition>
-      </RouterView>
-    </main>
-    <FooterBar />
-  </div>
-</template>
-
 <script setup>
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
 import { onMounted } from 'vue'
 import ParticleBackground from './components/ParticleBackground.vue'
 import NavBar from './components/NavBar.vue'
 import FooterBar from './components/FooterBar.vue'
+
+const route = useRoute()
+
+//  Use route meta for more flexibility
+const hideNavBar = computed(() => route.meta.hideNavBar || false)
+const hideFooter = computed(() => route.meta.hideFooter || false)
 
 // Parallax on scroll elements
 onMounted(() => {
@@ -32,6 +25,24 @@ onMounted(() => {
   }, { passive: true })
 })
 </script>
+
+
+<template>
+  <div id="app-root">
+    <ParticleBackground />
+    <NavBar v-if="!hideNavBar" />
+    <main class="main-content">
+      <RouterView v-slot="{ Component }">
+        <Transition name="page" mode="out-in">
+          <component :is="Component" />
+        </Transition>
+      </RouterView>
+    </main>
+    <FooterBar v-if="!hideFooter" />
+  </div>
+</template>
+
+
 
 <style>
 @import './assets/global.css';

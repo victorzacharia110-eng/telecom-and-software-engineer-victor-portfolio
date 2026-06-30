@@ -1,106 +1,262 @@
 import { createApp } from 'vue'
-import { createRouter, createWebHistory } from 'vue-router'
+import { createPinia } from 'pinia'
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 import App from './App.vue'
+import router from './router'
 import './assets/global.css'
 
-// FontAwesome
+// ── FontAwesome ──────────────────────────────────────────────────────────
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-
-// Solid Icons
 import { 
-  faArrowRight, 
-  faBriefcase, 
-  faChartLine, 
-  faPlug, 
-  faMobileAlt, 
-  faCloud, 
-  faPalette,
-  faStar,
-  faUsers,
-  faClock,
-  faCheckCircle,
-  faRocket,
-  faPhone,
-  faLocationDot,
-  faBuilding,
-  faCog,
-  faCoins,         // ✅ CHANGED: faCoin → faCoins
-  faStore,
-  faBuildingColumns,
-  faTruck,
-  faStoreAlt,
-  faChartPie,
-  faMobileScreenButton,
-  faHospital,
-  faCodeBranch,
-  faGraduationCap,
-  faShoppingCart,
+  // Solid Icons
   faChartBar,
-  faTag
+  faBullhorn,
+  faComments,
+  faUser,
+  faLock,
+  faDoorOpen,
+  faCreditCard,
+  faRightFromBracket,
+  faBars,
+  faBuilding,
+  faCheckCircle,
+  faHouse,
+  faMoneyBill,
+  faXmark,
+  faMobileAlt,
+  faTrash,
+  faFloppyDisk,
+  faBan,
+  faStar,
+  faTriangleExclamation,
+  faKey,
+  faSpinner,
+  faEnvelope,
+  faEye,
+  faInfoCircle,
+  faTv,
+  faFutbol,
+  faTrophy,
+  faCalendarAlt,
+  faSearch,
+  faSync,
+  faFilm,
+  faPlus,
+  faPen,
+  faTimes,
+  faCalendar,
+  faFolderOpen,
+  faLink,
+  faTowerBroadcast,
+  faSeedling,
+  faSatellite,
+  faGlobeAfrica,
+  faCloudUploadAlt,
+  faBrain,
+  faBullseye,
+  faCogs,
+  faCode,
+  faTag,
+  faUsers,
+  faBriefcase,
+  faClock,
+  faChartLine,
+  faPlug,
+  faCloud,
+  faPalette,
+  faArrowRight,
+  faRocket,
+  faCheckCircle as faCheckCircleSolid,
+  faCircleExclamation,
+  faFolder,
+  faFile,
+  faEdit,
+  faSave,
+  faUndo,
+  faRedo,
+  faCopy,
+  faPaste,
+  faCut,
+  faPrint,
+  faDownload,
+  faUpload,
+  faShare,
+  faHeart,
+  faThumbsUp,
+  faThumbsDown,
+  faRotate,
+  faReply,
+  faPaperPlane,
+  faSignInAlt,        // ⬅️ ADD THIS
+  faUserPlus,         // ⬅️ ADD THIS
+  faPhone,            // ⬅️ ADD THIS
+  faLocationDot,      // ⬅️ ADD THIS
+  faCog,              // ⬅️ ADD THIS
+  faCoins,            // ⬅️ ADD THIS
+  faEnvelope as faEnvelopeSolid,
+  faRobot,
+  faGamepad,
+  faMusic,
+  faCamera,
+  faVideo,
+  faHeadphones,
+  faMicrophone,
+  faDesktop,
+  faLaptop,
+  faTablet,
+  faPrint as faPrintSolid,
 } from '@fortawesome/free-solid-svg-icons'
 
-// Regular Icons
 import { 
-  faEnvelope as farEnvelope,
-  faUser as farUser,
-  faComment as farComment,
-  faPaperPlane as farPaperPlane,
-  faCircleCheck as farCircleCheck,
-  faCalendar as farCalendar
+  faCalendar as faCalendarRegular,
+  faEye as faEyeRegular,
+  faStar as faStarRegular,
+  faComment,
+  faEnvelope as faEnvelopeRegular,
+  faUser as faUserRegular,
+  faPaperPlane as faPaperPlaneRegular,
+  faClock as faClockRegular,
 } from '@fortawesome/free-regular-svg-icons'
 
-// Brand Icons
-import { 
-  faLaravel, 
-  faVuejs, 
-  faReact, 
-  faDocker, 
-  faPhp, 
-  faNodeJs,
+import {
   faGithub,
-  faLinkedinIn,
   faTwitter,
-  faWhatsapp
+  faLinkedin,
+  faLinkedinIn,       // ⬅️ ADD THIS
+  faFacebook,
+  faFacebookF,        // ⬅️ ADD THIS
+  faInstagram,
+  faYoutube,
+  faWhatsapp,         // ⬅️ ADD THIS
 } from '@fortawesome/free-brands-svg-icons'
 
-// Add all icons to library
+// Add all icons to the library
 library.add(
-  // Solid
-  faArrowRight, faBriefcase, faChartLine, faPlug, faMobileAlt, 
-  faCloud, faPalette, faStar, faUsers, faClock, faCheckCircle, 
-  faRocket, faPhone, faLocationDot, faBuilding, faCog, faCoins,  // ✅ CHANGED here too
-  faStore, faBuildingColumns, faTruck, faStoreAlt, faChartPie,
-  faMobileScreenButton, faHospital, faCodeBranch, faGraduationCap,
-  faShoppingCart, faChartBar, faTag,
-  // Regular
-  farEnvelope, farUser, farComment, farPaperPlane, farCircleCheck, farCalendar,
-  // Brands
-  faLaravel, faVuejs, faReact, faDocker, faPhp, faNodeJs,
-  faGithub, faLinkedinIn, faTwitter, faWhatsapp
+  // Solid Icons
+  faChartBar,
+  faBullhorn,
+  faComments,
+  faUser,
+  faLock,
+  faDoorOpen,
+  faCreditCard,
+  faRightFromBracket,
+  faBars,
+  faBuilding,
+  faCheckCircle,
+  faHouse,
+  faMoneyBill,
+  faXmark,
+  faMobileAlt,
+  faTrash,
+  faFloppyDisk,
+  faBan,
+  faStar,
+  faTriangleExclamation,
+  faKey,
+  faSpinner,
+  faEnvelope,
+  faEye,
+  faInfoCircle,
+  faTv,
+  faFutbol,
+  faTrophy,
+  faCalendarAlt,
+  faSearch,
+  faSync,
+  faFilm,
+  faPlus,
+  faPen,
+  faTimes,
+  faCalendar,
+  faFolderOpen,
+  faLink,
+  faTowerBroadcast,
+  faSeedling,
+  faSatellite,
+  faGlobeAfrica,
+  faCloudUploadAlt,
+  faBrain,
+  faBullseye,
+  faCogs,
+  faCode,
+  faTag,
+  faUsers,
+  faBriefcase,
+  faClock,
+  faChartLine,
+  faPlug,
+  faCloud,
+  faPalette,
+  faArrowRight,
+  faRocket,
+  faCheckCircleSolid,
+  faCircleExclamation,
+  faFolder,
+  faFile,
+  faEdit,
+  faSave,
+  faUndo,
+  faRedo,
+  faCopy,
+  faPaste,
+  faCut,
+  faPrintSolid,
+  faDownload,
+  faUpload,
+  faShare,
+  faHeart,
+  faThumbsUp,
+  faThumbsDown,
+  faRotate,
+  faReply,
+  faPaperPlane,
+  faSignInAlt,
+  faUserPlus,
+  faPhone,
+  faLocationDot,
+  faCog,
+  faCoins,
+  faEnvelopeSolid,
+  faRobot,
+  faGamepad,
+  faMusic,
+  faCamera,
+  faVideo,
+  faHeadphones,
+  faMicrophone,
+  faDesktop,
+  faLaptop,
+  faTablet,
+  
+  // Regular Icons
+  faCalendarRegular,
+  faEyeRegular,
+  faStarRegular,
+  faComment,
+  faEnvelopeRegular,
+  faUserRegular,
+  faPaperPlaneRegular,
+  faClockRegular,
+  
+  // Brand Icons
+  faGithub,
+  faTwitter,
+  faLinkedin,
+  faLinkedinIn,
+  faFacebook,
+  faFacebookF,
+  faInstagram,
+  faYoutube,
+  faWhatsapp,
 )
 
-// Views
-import Home from './views/Home.vue'
-import About from './views/About.vue'
-import Projects from './views/Projects.vue'
-import Contact from './views/Contact.vue'
-
-const router = createRouter({
-  history: createWebHistory(),
-  routes: [
-    { path: '/', component: Home },
-    { path: '/about', component: About },
-    { path: '/projects', component: Projects },
-    { path: '/contact', component: Contact },
-  ],
-  scrollBehavior(to, from, savedPosition) {
-    if (to.hash) return { el: to.hash, behavior: 'smooth' }
-    return { top: 0, behavior: 'smooth' }
-  }
-})
+const pinia = createPinia()
+pinia.use(piniaPluginPersistedstate)
 
 const app = createApp(App)
 app.component('font-awesome-icon', FontAwesomeIcon)
+app.use(pinia)
 app.use(router)
 app.mount('#app')

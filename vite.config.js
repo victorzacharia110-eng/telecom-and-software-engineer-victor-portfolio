@@ -13,9 +13,16 @@ export default defineConfig({
     port: 3000,
     proxy: {
       '/api': {
-        target: 'http://localhost:8000', // Your Laravel backend
+        target: 'http://localhost:8000',
         changeOrigin: true,
-      }
+        secure: false,
+        ws: true,
+      },
+      '/sanctum': {
+        target: 'http://localhost:8000',
+        changeOrigin: true,
+        secure: false,
+      },
     }
   },
   build: {

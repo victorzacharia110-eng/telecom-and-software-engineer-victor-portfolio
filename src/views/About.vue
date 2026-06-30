@@ -51,19 +51,23 @@ const ceoStats = [
   { value: '30+', label: 'Clients Served' },
 ]
 const ceoSocials = [
-  { icon: '🔗', label: 'LinkedIn', href: '#' },
-  { icon: '🐦', label: 'Twitter',  href: '#' },
-  { icon: '💻', label: 'GitHub',   href: '#' },
-  { icon: '✉️', label: 'Email',    href: 'mailto:victor@telesoft.co.tz' },
+  { icon: ['fab', 'linkedin-in'], label: 'LinkedIn', href: '#' },
+  { icon: ['fab', 'twitter'], label: 'Twitter',  href: '#' },
+  { icon: ['fab', 'github'], label: 'GitHub',   href: '#' },
+  { icon: ['fas', 'envelope'], label: 'Email',    href: 'mailto:victor@telesoft.co.tz' },
 ]
 
 const telecomSkills = [
   {
-    icon: '🔦', name: 'Fiber Optic & Transmission Systems', level: 94,
+    icon: ['fas', 'wifi'],
+    name: 'Fiber Optic & Transmission Systems',
+    level: 94,
     detail: 'DWDM, SONET/SDH, OTN design; hands-on fiber splicing, OTDR testing and fault diagnosis across backbone and last-mile networks.',
   },
   {
-    icon: '🗺️', name: 'Network Design & Planning', level: 91,
+    icon: ['fas', 'map-marked-alt'],
+    name: 'Network Design & Planning',
+    level: 91,
     detail: 'End-to-end topology planning; capacity analysis, link budget calculations, QoS architecture, and multi-site WAN design.',
   },
 ]
@@ -71,15 +75,21 @@ const telecomTags = ['DWDM', 'SDH/SONET', 'OTDR', 'Fiber Splicing', 'Link Budget
 
 const softwareSkills = [
   {
-    icon: '🏗️', name: 'Full-Stack Web Development (Laravel + Vue)', level: 96,
+    icon: ['fas', 'code'],
+    name: 'Full-Stack Web Development (Laravel + Vue)',
+    level: 96,
     detail: 'End-to-end web apps: RESTful Laravel APIs, Vue 3 SPAs, Inertia.js, Livewire, Sanctum/Passport auth, and queue workers.',
   },
   {
-    icon: '🗄️', name: 'Database Architecture & Optimization', level: 90,
+    icon: ['fas', 'database'],
+    name: 'Database Architecture & Optimization',
+    level: 90,
     detail: 'Relational schema design (MySQL/PostgreSQL); indexing strategies, query optimization, Redis caching, and migration planning.',
   },
   {
-    icon: '☁️', name: 'Cloud Infrastructure & DevOps', level: 86,
+    icon: ['fas', 'cloud'],
+    name: 'Cloud Infrastructure & DevOps',
+    level: 86,
     detail: 'Docker/Docker Compose, CI/CD with GitHub Actions, server provisioning on AWS/DigitalOcean, Nginx, SSL, and monitoring.',
   },
 ]
@@ -87,7 +97,7 @@ const softwareTags = ['Laravel', 'Vue 3', 'MySQL', 'PostgreSQL', 'Redis', 'Docke
 
 const focusAreas = [
   {
-    icon: '🏪',
+    icon: ['fas', 'shopping-cart'],
     title: 'E-Commerce & Retail Tech',
     bg: 'linear-gradient(135deg,rgba(0,196,212,0.15),rgba(37,99,196,0.15))',
     glow: 'linear-gradient(90deg,#00C4D4,#00E5FF)',
@@ -102,7 +112,7 @@ const focusAreas = [
     clients: 'Retail chains, wholesalers, online marketplaces',
   },
   {
-    icon: '📡',
+    icon: ['fas', 'tower-broadcast'],
     title: 'Telecom Software Solutions',
     bg: 'linear-gradient(135deg,rgba(45,43,127,0.2),rgba(0,151,167,0.15))',
     glow: 'linear-gradient(90deg,#2D2B7F,#00C4D4)',
@@ -117,7 +127,7 @@ const focusAreas = [
     clients: 'ISPs, telcos, network operators, ICT agencies',
   },
   {
-    icon: '📊',
+    icon: ['fas', 'chart-pie'],
     title: 'ERP & Business Systems',
     bg: 'linear-gradient(135deg,rgba(37,99,196,0.15),rgba(30,27,94,0.2))',
     glow: 'linear-gradient(90deg,#2563C4,#00E5FF)',
@@ -134,28 +144,27 @@ const focusAreas = [
 ]
 
 const timeline = [
-  { year: '2016', icon: '🌱', title: 'TSCL Founded',             desc: 'Victor Zacharia founded Telesoft Company Limited in Dar es Salaam — building enterprise software tailored for African business realities.' },
-  { year: '2017', icon: '🚀', title: 'First Enterprise Client',   desc: 'Delivered the first major retail POS and inventory platform, establishing TSCL's reputation for production-grade systems.' },
-  { year: '2018', icon: '📡', title: 'Telecom Division Launched', desc: "Built on Victor's telecom engineering background, a dedicated telecom software practice was launched to serve ISPs and network operators." },
-  { year: '2019', icon: '🌍', title: 'Regional Expansion',        desc: 'Extended delivery to Kenya and Uganda; cross-border logistics and finance platforms deployed across three countries.' },
-  { year: '2021', icon: '📱', title: 'Mobile Practice Added',     desc: 'Added React Native mobile development — five production apps shipped in year one across retail, fintech, and field operations.' },
-  { year: '2023', icon: '☁️', title: 'Cloud & DevOps Practice',  desc: 'Formalised cloud infrastructure services with full CI/CD pipelines, Docker deployments, and 24/7 managed hosting.' },
-  { year: '2024', icon: '🤖', title: 'AI-Augmented Platforms',   desc: 'Integrated intelligent analytics, predictive dashboards, and AI-assisted decision engines into ERP and retail solutions.' },
+  { year: '2016', icon: ['fas', 'seedling'], title: 'TSCL Founded', desc: 'Victor Zacharia founded Telesoft Company Limited in Dar es Salaam — building enterprise software tailored for African business realities.' },
+  { year: '2017', icon: ['fas', 'rocket'], title: 'First Enterprise Client', desc: "Delivered the first major retail POS and inventory platform, establishing TSCL's reputation for production-grade systems." },
+  { year: '2018', icon: ['fas', 'satellite'], title: 'Telecom Division Launched', desc: "Built on Victor's telecom engineering background, a dedicated telecom software practice was launched to serve ISPs and network operators." },
+  { year: '2019', icon: ['fas', 'globe-africa'], title: 'Regional Expansion', desc: 'Extended delivery to Kenya and Uganda; cross-border logistics and finance platforms deployed across three countries.' },
+  { year: '2021', icon: ['fas', 'mobile-alt'], title: 'Mobile Practice Added', desc: 'Added React Native mobile development — five production apps shipped in year one across retail, fintech, and field operations.' },
+  { year: '2023', icon: ['fas', 'cloud-upload-alt'], title: 'Cloud & DevOps Practice', desc: 'Formalised cloud infrastructure services with full CI/CD pipelines, Docker deployments, and 24/7 managed hosting.' },
+  { year: '2024', icon: ['fas', 'brain'], title: 'AI-Augmented Platforms', desc: 'Integrated intelligent analytics, predictive dashboards, and AI-assisted decision engines into ERP and retail solutions.' },
 ]
-
 const mvv = [
   {
-    label: 'Mission', icon: '🎯',
+    label: 'Mission', icon: ['fas', 'bullseye'],
     title: 'Empower African Business Through Technology',
     body: 'We close the technology gap in East Africa by delivering world-class software purposefully designed for local infrastructure, workflows, and business realities.',
   },
   {
-    label: 'Vision', icon: '🔭',
+    label: 'Vision', icon: ['fas', 'eye'],
     title: 'East Africa\'s Most Trusted Tech Partner by 2030',
     body: 'We measure success by real-world impact — businesses that run smoother, networks that perform reliably, and communities that benefit from digital transformation.',
   },
   {
-    label: 'Approach', icon: '⚙️',
+    label: 'Approach', icon: ['fas', 'cogs'],
     title: 'Engineering-Led, Business-Focused',
     body: "Victor's dual engineering background means every system is designed from infrastructure up — secure, scalable, and maintainable by default, always tied to a business outcome.",
   },
@@ -351,7 +360,8 @@ onUnmounted(() => {
 
         <div class="ceo-socials">
           <a v-for="s in ceoSocials" :key="s.label" :href="s.href" class="ceo-social-chip">
-            <span>{{ s.icon }}</span> {{ s.label }}
+            <font-awesome-icon :icon="s.icon" />
+            {{ s.label }}
           </a>
         </div>
       </div>
@@ -376,7 +386,9 @@ onUnmounted(() => {
       <div class="domains-grid">
         <!-- Telecom -->
         <div class="domain-card glass-card" :class="{ visible: domainsVisible }">
-          <div class="domain-icon-wrap telecom"><span class="domain-icon">📡</span></div>
+          <div class="domain-icon-wrap telecom">
+            <font-awesome-icon :icon="['fas', 'tower-broadcast']" class="domain-icon" />
+          </div>
           <h3 class="domain-title">Telecommunications Engineering</h3>
           <p class="domain-desc">
             With formal training and hands-on field experience, Victor architects networks that are
@@ -385,7 +397,7 @@ onUnmounted(() => {
           <div class="skill-list">
             <div v-for="sk in telecomSkills" :key="sk.name" class="skill-row">
               <div class="skill-row-header">
-                <span class="skill-icon">{{ sk.icon }}</span>
+                <font-awesome-icon :icon="sk.icon" class="skill-icon" />
                 <span class="skill-name">{{ sk.name }}</span>
                 <span class="skill-pct">{{ sk.level }}%</span>
               </div>
@@ -409,7 +421,9 @@ onUnmounted(() => {
           :class="{ visible: domainsVisible }"
           style="transition-delay: 0.18s"
         >
-          <div class="domain-icon-wrap software"><span class="domain-icon">⚙️</span></div>
+          <div class="domain-icon-wrap software">
+            <font-awesome-icon :icon="['fas', 'code']" class="domain-icon" />
+          </div>
           <h3 class="domain-title">Software Engineering</h3>
           <p class="domain-desc">
             From architecting Laravel backends to deploying containerised cloud infrastructure,
@@ -418,7 +432,7 @@ onUnmounted(() => {
           <div class="skill-list">
             <div v-for="sk in softwareSkills" :key="sk.name" class="skill-row">
               <div class="skill-row-header">
-                <span class="skill-icon">{{ sk.icon }}</span>
+                <font-awesome-icon :icon="sk.icon" class="skill-icon" />
                 <span class="skill-name">{{ sk.name }}</span>
                 <span class="skill-pct">{{ sk.level }}%</span>
               </div>
@@ -461,7 +475,7 @@ onUnmounted(() => {
           >
             <div class="focus-number">{{ String(i + 1).padStart(2, "0") }}</div>
             <div class="focus-icon-wrap" :style="{ background: area.bg }">
-              <span class="focus-icon">{{ area.icon }}</span>
+              <font-awesome-icon :icon="area.icon" class="focus-icon" />
             </div>
             <h3 class="focus-title">{{ area.title }}</h3>
             <p class="focus-desc">{{ area.desc }}</p>
@@ -500,7 +514,7 @@ onUnmounted(() => {
         >
           <div class="tl-card glass-card">
             <div class="tl-year gradient-text">{{ ev.year }}</div>
-            <div class="tl-ev-icon">{{ ev.icon }}</div>
+            <div class="tl-ev-icon"><font-awesome-icon :icon="ev.icon" /></div>
             <h3 class="tl-title">{{ ev.title }}</h3>
             <p class="tl-desc">{{ ev.desc }}</p>
           </div>
@@ -519,7 +533,7 @@ onUnmounted(() => {
           :class="{ visible: mvvVisible }"
           :style="{ transitionDelay: i * 0.15 + 's' }"
         >
-          <span class="mvv-icon">{{ item.icon }}</span>
+          <font-awesome-icon :icon="item.icon" class="mvv-icon" />
           <p class="section-label">{{ item.label }}</p>
           <h3 class="mvv-title">{{ item.title }}</h3>
           <p class="mvv-body">{{ item.body }}</p>
@@ -539,15 +553,19 @@ onUnmounted(() => {
           e-commerce solution — Victor and the TSCL team are ready to engineer it.
         </p>
         <div class="cta-actions">
-          <RouterLink to="/contact" class="btn-primary">Start a Project</RouterLink>
-          <RouterLink to="/projects" class="btn-outline">View Our Work</RouterLink>
+          <RouterLink to="/contact" class="btn-primary">
+            <font-awesome-icon :icon="['fas', 'rocket']" />
+            Start a Project
+          </RouterLink>
+          <RouterLink to="/projects" class="btn-outline">
+            <font-awesome-icon :icon="['fas', 'eye']" />
+            View Our Work
+          </RouterLink>
         </div>
       </div>
     </section>
   </div>
 </template>
-
-
 
 <style scoped>
 .about-page {
@@ -839,6 +857,7 @@ onUnmounted(() => {
 }
 .domain-icon {
   font-size: 1.7rem;
+  color: #00e5ff;
 }
 .domain-title {
   font-size: 1.15rem;
@@ -870,6 +889,8 @@ onUnmounted(() => {
 }
 .skill-icon {
   font-size: 0.95rem;
+  color: #00c4d4;
+  width: 20px;
 }
 .skill-name {
   font-size: 0.85rem;
@@ -1002,6 +1023,7 @@ onUnmounted(() => {
 }
 .focus-icon {
   font-size: 1.6rem;
+  color: #00e5ff;
 }
 .focus-title {
   font-size: 1.08rem;
@@ -1126,6 +1148,7 @@ onUnmounted(() => {
 .tl-ev-icon {
   font-size: 1.3rem;
   margin-bottom: 8px;
+  color: #00c4d4;
 }
 .tl-title {
   font-size: 0.98rem;
@@ -1184,6 +1207,7 @@ onUnmounted(() => {
   font-size: 2rem;
   display: block;
   margin-bottom: 12px;
+  color: #00e5ff;
 }
 .mvv-title {
   font-size: 1.05rem;
@@ -1242,6 +1266,35 @@ onUnmounted(() => {
   gap: 16px;
   justify-content: center;
   flex-wrap: wrap;
+}
+
+.btn-primary, .btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  border-radius: 30px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+.btn-primary {
+  background: linear-gradient(135deg, #00c4d4, #00e5ff);
+  color: #0a0818;
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0, 229, 255, 0.3);
+}
+.btn-outline {
+  border: 1.5px solid rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.7);
+}
+.btn-outline:hover {
+  border-color: #00e5ff;
+  color: #fff;
+  background: rgba(0, 229, 255, 0.05);
 }
 
 /* RESPONSIVE */
