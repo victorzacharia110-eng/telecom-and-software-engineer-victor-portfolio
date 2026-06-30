@@ -36,7 +36,7 @@ const router = createRouter({
       meta: { 
         guest: true,
         title: 'Login',
-        hideNavBar: true
+        hideNavBar: false
       }
     },
     { 
@@ -45,7 +45,7 @@ const router = createRouter({
       meta: { 
         guest: true,
         title: 'Register',
-        hideNavBar: true
+        hideNavBar: false
       }
     },
     
