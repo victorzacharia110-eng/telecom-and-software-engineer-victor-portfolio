@@ -69,7 +69,8 @@ export const useAuthStore = defineStore('auth', () => {
     error.value = null
 
     try {
-      const response = await api.post('/register', userData)
+      //  FIXED: Added /auth prefix
+      const response = await api.post('/auth/register', userData)
       
       if (response.data.success) {
         const userData = response.data.data.user
@@ -127,7 +128,8 @@ export const useAuthStore = defineStore('auth', () => {
     error.value = null
 
     try {
-      const response = await api.post('/login', credentials)
+      //  FIXED: Added /auth prefix
+      const response = await api.post('/auth/login', credentials)
       
       if (response.data.success) {
         const userData = response.data.data.user
@@ -183,7 +185,8 @@ export const useAuthStore = defineStore('auth', () => {
     try {
       const token = localStorage.getItem('auth_token')
       if (token) {
-        await api.post('/logout')
+        //  FIXED: Added /auth prefix
+        await api.post('/auth/logout')
       }
       
       console.log('Logged out successfully!')
@@ -210,7 +213,8 @@ export const useAuthStore = defineStore('auth', () => {
     error.value = null
 
     try {
-      const response = await api.get('/user')
+      // ✅ FIXED: Added /auth prefix
+      const response = await api.get('/auth/user')
       
       if (response.data.success) {
         const userData = response.data.data.user
@@ -249,7 +253,8 @@ export const useAuthStore = defineStore('auth', () => {
     error.value = null
 
     try {
-      const response = await api.post('/change-password', passwordData)
+      //  FIXED: Added /auth prefix
+      const response = await api.post('/auth/change-password', passwordData)
       
       if (response.data.success) {
         return {

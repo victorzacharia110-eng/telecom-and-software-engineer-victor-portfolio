@@ -43,7 +43,7 @@ async function fetchProfile() {
   error.value = null
 
   try {
-    const response = await api.get('/user')
+    const response = await api.get('/auth/user')
     if (response.data.success) {
       const user = response.data.data.user
       profileForm.name = user.name
@@ -100,7 +100,7 @@ async function updatePassword() {
   successMessage.value = null
 
   try {
-    const response = await api.post('/change-password', {
+    const response = await api.post('/auth/change-password', {
       current_password: passwordForm.current_password,
       new_password: passwordForm.new_password,
       new_password_confirmation: passwordForm.new_password_confirmation,
