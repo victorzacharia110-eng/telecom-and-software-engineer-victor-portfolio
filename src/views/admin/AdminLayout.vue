@@ -80,7 +80,6 @@
             <font-awesome-icon icon="fa-solid fa-users" />
           </span>
           <span class="nav-label">Clients</span>
-          <span v-if="totalClients > 0" class="nav-badge">{{ totalClients }}</span>
         </RouterLink>
 
         <div class="nav-section-label">System</div>
@@ -161,12 +160,10 @@
 import { ref, computed, onMounted, onUnmounted, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useAuthStore } from '@/stores/auth';
-import { useUserStore } from '@/stores/users';
 
 const route = useRoute();
 const router = useRouter();
 const authStore = useAuthStore();
-const userStore = useUserStore();
 
 const sidebarCollapsed = ref(false);
 const mobileOpen = ref(false);
@@ -184,7 +181,6 @@ const pageTitles = {
 };
 
 const currentPageTitle = computed(() => pageTitles[route.path] || "Dashboard");
-const totalClients = computed(() => userStore.totalUsers || 0);
 
 function updateTime() {
   currentTime.value = new Date().toLocaleTimeString("en-US", {
@@ -226,13 +222,10 @@ async function handleLogout() {
 }
 
 let timer;
-onMounted(async () => {
+onMounted(() => {
   updateTime();
   timer = setInterval(updateTime, 1000);
   window.addEventListener("resize", handleResize);
-  
-  // Fetch users count
-  await userStore.fetchUsers();
 });
 
 onUnmounted(() => {
