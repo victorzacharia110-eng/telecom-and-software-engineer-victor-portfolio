@@ -56,6 +56,33 @@
           <span class="nav-label">{{ item.label }}</span>
         </RouterLink>
 
+        <div class="nav-section-label">Credentials</div>
+        <RouterLink
+          to="/admin/certificates"
+          class="nav-item"
+          active-class="active"
+          @click="closeMobile"
+        >
+          <span class="nav-icon">
+            <font-awesome-icon icon="fa-solid fa-certificate" />
+          </span>
+          <span class="nav-label">Certificates</span>
+        </RouterLink>
+
+        <div class="nav-section-label">Users</div>
+        <RouterLink
+          to="/admin/users"
+          class="nav-item"
+          active-class="active"
+          @click="closeMobile"
+        >
+          <span class="nav-icon">
+            <font-awesome-icon icon="fa-solid fa-users" />
+          </span>
+          <span class="nav-label">Clients</span>
+          <span v-if="totalClients > 0" class="nav-badge">{{ totalClients }}</span>
+        </RouterLink>
+
         <div class="nav-section-label">System</div>
         <RouterLink
           v-for="item in systemNav"
@@ -70,20 +97,6 @@
           </span>
           <span class="nav-label">{{ item.label }}</span>
         </RouterLink>
-        
-        <!-- ── Add Certificates Link ─────────────────────────────────────── -->
-        <div class="nav-section-label">Credentials</div>
-        <RouterLink
-          to="/admin/certificates"
-          class="nav-item"
-          active-class="active"
-          @click="closeMobile"
-        >
-          <span class="nav-icon">
-            <font-awesome-icon icon="fa-solid fa-certificate" />
-          </span>
-          <span class="nav-label">Certificates</span>
-        </RouterLink>
       </nav>
 
       <div class="sidebar-footer">
@@ -95,7 +108,6 @@
           </div>
         </div>
         
-        <!-- ── Logout Button ──────────────────────────────────────────────── -->
         <button @click="handleLogout" class="logout-btn-sidebar">
           <font-awesome-icon icon="fa-solid fa-sign-out-alt" />
           <span>Logout</span>
@@ -131,7 +143,6 @@
             <font-awesome-icon icon="fa-regular fa-bell" />
             <span class="notif-dot"></span>
           </button>
-          <!-- ── Logout Button in Top Bar ─────────────────────────────────── -->
           <button @click="handleLogout" class="topbar-logout-btn" title="Logout">
             <font-awesome-icon icon="fa-solid fa-sign-out-alt" />
           </button>
@@ -150,10 +161,12 @@
 import { ref, computed, onMounted, onUnmounted, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useAuthStore } from '@/stores/auth';
+import { useUserStore } from '@/stores/users';
 
 const route = useRoute();
 const router = useRouter();
 const authStore = useAuthStore();
+const userStore = useUserStore();
 
 const sidebarCollapsed = ref(false);
 const mobileOpen = ref(false);
@@ -166,9 +179,12 @@ const pageTitles = {
   "/admin/projects": "Projects",
   "/admin/testimonials": "Testimonials",
   "/admin/certificates": "Certificates",
+  "/admin/users": "Clients",
   "/admin/settings": "Settings",
 };
+
 const currentPageTitle = computed(() => pageTitles[route.path] || "Dashboard");
+const totalClients = computed(() => userStore.totalUsers || 0);
 
 function updateTime() {
   currentTime.value = new Date().toLocaleTimeString("en-US", {
@@ -210,10 +226,13 @@ async function handleLogout() {
 }
 
 let timer;
-onMounted(() => {
+onMounted(async () => {
   updateTime();
   timer = setInterval(updateTime, 1000);
   window.addEventListener("resize", handleResize);
+  
+  // Fetch users count
+  await userStore.fetchUsers();
 });
 
 onUnmounted(() => {
@@ -239,6 +258,7 @@ const mainNav = [
     icon: "fa-regular fa-envelope",
   },
 ];
+
 const contentNav = [
   {
     to: "/admin/projects",
@@ -251,6 +271,7 @@ const contentNav = [
     icon: "fa-solid fa-star",
   },
 ];
+
 const systemNav = [
   {
     to: "/admin/settings",
